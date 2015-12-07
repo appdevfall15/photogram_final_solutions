@@ -3,8 +3,12 @@ class PhotosController < ApplicationController
     @photos = current_user.liked_photos
   end
 
+  def my_timeline
+    @photos = current_user.timeline_photos
+  end
+
   def index
-    @photos = Photo.order("created_at DESC")
+    @photos = Photo.all
   end
 
   def show
@@ -36,7 +40,6 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
 
     @photo.caption = params[:caption]
-    @photo.image = params[:image]
     @photo.user_id = params[:user_id]
 
     if @photo.save
